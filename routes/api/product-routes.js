@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 // get one product
 router.get('/:id',async(req, res) => {
   try{
-const productData=await product.findByPk(req.params.id,{
+const productData=await Product.findByPk(req.params.id,{
   include:[{ model: Category }, { model: Tag }],
  });
  if(!productData){
@@ -36,7 +36,7 @@ const productData=await product.findByPk(req.params.id,{
 
 // create new product
 router.post('/', (req, res) => {
-
+console.log(req.body)
   /* req.body should look like this...
     {
       product_name: "Basketball",

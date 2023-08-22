@@ -8,7 +8,10 @@ router.get('/', async(req, res) => {
     const catData=await Category.findAll({
       include:[{ model: Product }],
  });
- res.status(200).json(catData);
+ res.status(200).json({
+catData,
+message:"ypu get all categories"
+ });
 }catch(error){
   res.status(500).json(error);
 }
@@ -32,7 +35,7 @@ router.get('/:id', async(req, res) => {
 });
 
 
-//create data
+//create category 
 router.post('/', async(req, res) => {
  try{
   const catData=await Category.create(req.body);

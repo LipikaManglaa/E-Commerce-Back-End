@@ -26,6 +26,7 @@ const productData=await Product.findByPk(req.params.id,{
  });
  if(!productData){
   res.status(404).json({message:'No product found with that id!'})
+  return;
  }
  res.status(200).json(productData)
   }catch(error){
@@ -36,7 +37,8 @@ const productData=await Product.findByPk(req.params.id,{
 
 // create new product
 router.post('/', (req, res) => {
-console.log(req.body)
+
+
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -46,6 +48,7 @@ console.log(req.body)
     }
   */
   Product.create(req.body)
+
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
@@ -122,8 +125,9 @@ router.delete('/:id', async(req, res) => {
   })
   if(!productData){
     res.status(404).json({message:'No product found with that id!'})
+    return;
    }
-   res.status(200).json(catData)
+   res.status(200).json({message:'product deleted!',catData})
  }catch(error){
   res.status(500).json(error);
  }

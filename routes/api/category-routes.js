@@ -10,7 +10,7 @@ router.get('/', async(req, res) => {
  });
  res.status(200).json({
 catData,
-message:"ypu get all categories"
+message:"you get all categories"
  });
 }catch(error){
   res.status(500).json(error);
@@ -26,6 +26,7 @@ router.get('/:id', async(req, res) => {
    });
    if(!catData){
     res.status(404).json({message:'No category found with that id!'})
+    return;
    }
    res.status(200).json(catData)
   }catch(error){
@@ -46,6 +47,8 @@ router.post('/', async(req, res) => {
  }
 });
 
+
+//update data
 router.put('/:id', async(req, res) => {
  try{
 const catData=await Category.update(req.body,{
@@ -53,10 +56,12 @@ const catData=await Category.update(req.body,{
     id:req.params.id
   }
 })
+
 if(!catData){
   res.status(404).json({message:'No category found with that id!'})
+  return;
  }
- res.status(200).json(catData)
+ res.status(200).json({message:'updated category!!',catData})
 
  }catch(error){
   res.status(500).json(error);
@@ -73,8 +78,9 @@ const catData=await Category.destroy({
 })
 if(!catData){
   res.status(404).json({message:'No cat found with that id!'})
+  return;
  }
- res.status(200).json(catData)
+ res.status(200).json({message:'delete category!!'})
  }catch(error){
   res.status(500).json(error);
  }
